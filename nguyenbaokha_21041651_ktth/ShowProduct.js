@@ -6,7 +6,9 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import {useState} from 'react';
+import { useState , useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from './productSlice';
 
 const ShowProduct = ({ navigation, route }) => {
   const RenderItem = ({ item }) => {
@@ -44,14 +46,29 @@ const ShowProduct = ({ navigation, route }) => {
       </TouchableOpacity>
     );
   };
-  const [data,setData]= useState([]);
+
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector((state) => state.products);
+
+  // Fetch products when the component mounts
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  if (loading) return <Text>Loading...</Text>;
+  if (error) return <Text>Error: {error}</Text>;
   return (
     <View style={{ flex: 1, padding: 10 }}>
-      <View style={{display:'flex',alignItems:'center',justifyContent:'space-between',flexDirection:'row'}}>
+      <View
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexDirection: 'row',
+        }}>
         <Text style={{ fontSize: 20, fontWeight: 600, color: 'red' }}>
           The world's Best Bike
         </Text>
-        
       </View>
 
       <View>
@@ -114,7 +131,7 @@ const ShowProduct = ({ navigation, route }) => {
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => <RenderItem item={item} />}
             style={{
-              height: 500,
+              height: 400,
             }}
             numColumns={2}
             showsVerticalScrollIndicator={false}
