@@ -11,7 +11,6 @@ const DetailProduct = ({ navigation, route }) => {
 
     navigation.navigate('Cart', {cartList : [...cartList, product]})
   };
-
   return (
     <View>
       <View
@@ -34,7 +33,7 @@ const DetailProduct = ({ navigation, route }) => {
 
       <View style={{ paddingLeft: 15, paddingRight: 15, paddingBottom: 15 }}>
         <Text style={{ fontSize: 20, fontWeight: 500 }}>Description</Text>
-        <Text style={{ fontSize: 14 }}>{product.description}</Text>
+        <Text style={{ fontSize: 14 }}>{product.description.length > 20 ? product.description.slice(0,20) : product.description }</Text>
       </View>
 
       <View

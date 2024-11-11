@@ -6,7 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native';
-import { useState , useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from './productSlice';
 
@@ -136,6 +136,22 @@ const ShowProduct = ({ navigation, route }) => {
             numColumns={2}
             showsVerticalScrollIndicator={false}
           />
+        </View>
+
+        <View>
+          <TouchableOpacity
+            style={{
+              width: '100%',
+              padding: 10,
+              backgroundColor: 'cyan',
+              marginTop: 10,
+            }}
+            onPress={() => navigation.navigate('AddProduct')} // Navigate to AddProduct
+          >
+            <Text style={{ color: 'white', textAlign: 'center' }}>
+              Add Product
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
